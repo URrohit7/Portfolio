@@ -265,33 +265,35 @@ function initNavigation() {
 
 // ========== ANIMATIONS ==========
 function initAnimations() {
-  // Register GSAP plugins
+  if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
 
-  // Hero entrance animations
-  gsap.fromTo('.hero-badge', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.3, ease: 'power2.out' });
-  gsap.fromTo('.hero-name-row', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.5, ease: 'power2.out' });
-  gsap.fromTo('.hero-meta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.7, ease: 'power2.out' });
-  gsap.fromTo('.hero-cta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.9, ease: 'power2.out' });
-  gsap.fromTo('.hero-photo-wrap', { opacity: 0, scale: 0.9, x: 30 }, { opacity: 1, scale: 1, x: 0, duration: 1, delay: 0.5, ease: 'power3.out' });
+  // Hero entrance — use gsap.set first so elements are visible if GSAP fails
+  const heroEls = ['.hero-badge', '.hero-name-row', '.hero-meta', '.hero-cta', '.hero-photo-wrap'];
+  heroEls.forEach(sel => {
+    const el = document.querySelector(sel);
+    if (el) el.style.opacity = '1'; // ensure visible as fallback
+  });
 
-  // Animate section labels
-  gsap.utils.toArray('.sec-label').forEach((element) => {
-    gsap.from(element, {
-      scrollTrigger: { trigger: element, start: 'top 85%', once: true },
-      duration: 0.6,
-      opacity: 0,
-      x: -30,
+  gsap.fromTo('.hero-badge',     { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.2, ease: 'power2.out' });
+  gsap.fromTo('.hero-name-row',  { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.35, ease: 'power2.out' });
+  gsap.fromTo('.hero-meta',      { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.5, ease: 'power2.out' });
+  gsap.fromTo('.hero-cta',       { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.65, ease: 'power2.out' });
+  gsap.fromTo('.hero-photo-wrap',{ opacity: 0, scale: 0.92, x: 20 }, { opacity: 1, scale: 1, x: 0, duration: 0.9, delay: 0.3, ease: 'power3.out' });
+
+  // Section labels
+  gsap.utils.toArray('.sec-label').forEach((el) => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      duration: 0.55, opacity: 0, x: -24,
     });
   });
 
-  // Animate section titles
-  gsap.utils.toArray('.sec-title').forEach((element) => {
-    gsap.from(element, {
-      scrollTrigger: { trigger: element, start: 'top 85%', once: true },
-      duration: 0.8,
-      opacity: 0,
-      y: 30,
+  // Section titles
+  gsap.utils.toArray('.sec-title').forEach((el) => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      duration: 0.7, opacity: 0, y: 24,
     });
   });
 }
@@ -644,7 +646,9 @@ function initTypewriter() {
   }
 
   // Small initial delay so it starts after hero entrance animation
-  setTimeout(tick, 1200);
+  // Uses DOMContentLoaded timing — works even if GSAP is deferred
+  const startDelay = window.matchMedia('(hover: none)').matches ? 400 : 1200;
+  setTimeout(tick, startDelay);
 }
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener('click', function (e) {
