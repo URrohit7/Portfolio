@@ -1,5 +1,6 @@
 // ========== INITIALIZATION ==========
 document.addEventListener('DOMContentLoaded', () => {
+  initMobileOptimizations(); // Detect and optimize for mobile
   initThemeToggle();
   initLoader();
   initCursor();
@@ -16,6 +17,54 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmootherScroll();
   initSkillBars();
 });
+
+// ========== MOBILE OPTIMIZATIONS ==========
+function initMobileOptimizations() {
+  const isMobile = window.innerWidth < 768 || 
+                   (('ontouchstart' in window) && navigator.maxTouchPoints > 0);
+
+  if (isMobile) {
+    // Add mobile class to body
+    document.body.classList.add('is-mobile');
+    
+    // Reduce animation complexity on mobile
+    document.documentElement.style.setProperty('--transition', '0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)');
+    
+    // Disable parallax on mobile for better performance
+    window.disableParallax = true;
+    
+    // Prevent zoom on double-tap
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', (e) => {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
+
+    // Optimize viewport for mobile
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+      viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes');
+    }
+
+    // Enable momentum scrolling for iOS
+    document.body.style.webkitOverflowScrolling = 'touch';
+
+    // Listen for window resize to handle orientation changes
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        // Refresh scroll-triggered animations on orientation change
+        if (window.ScrollTrigger) {
+          ScrollTrigger.refresh();
+        }
+      }, 250);
+    });
+  }
+}
 
 // ========== THEME TOGGLE ==========
 function initThemeToggle() {
@@ -158,13 +207,19 @@ function initCursor() {
 // ========== SCROLL PROGRESS ==========
 function initScrollProgress() {
   const progressBar = document.getElementById('progress-bar');
+  let ticking = false;
 
   window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = (scrollTop / docHeight) * 100;
-    progressBar.style.width = scrolled + '%';
-  });
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 }
 
 // ========== MOUSE GLOW (desktop only) ==========
@@ -204,7 +259,7 @@ function initNavigation() {
     } else {
       nav.style.backdropFilter = 'blur(10px)';
     }
-  });
+  }, { passive: true });
 }
 
 // ========== ANIMATIONS ==========
@@ -240,17 +295,24 @@ function initAnimations() {
   });
 }
 
-// ========== PARALLAX ==========
+// ========== PARALLAX (desktop only) ==========
 function initParallax() {
+  if (window.matchMedia('(hover: none)').matches) return; // skip on touch — causes jank
   const parallaxElements = document.querySelectorAll('.parallax-hero');
+  let ticking = false;
 
   window.addEventListener('scroll', () => {
-    parallaxElements.forEach((element) => {
-      const speed = element.getAttribute('data-speed') || 0.5;
-      const yPos = window.scrollY * speed;
-      element.style.transform = `translateY(${yPos}px)`;
-    });
-  });
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        parallaxElements.forEach((el) => {
+          const speed = parseFloat(el.getAttribute('data-speed')) || 0.25;
+          el.style.transform = `translateY(${window.scrollY * speed}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 }
 
 // ========== REVEAL ON SCROLL ==========
@@ -330,13 +392,23 @@ function countUp(element, target) {
 // ========== SMOOTHER SCROLL WITH LENIS ==========
 function initSmootherScroll() {
   if (typeof Lenis === 'undefined') return;
-  if (window.matchMedia('(hover: none)').matches) return; // native scroll on touch
+
+  // Detect if device supports touch
+  const isTouchDevice = () => {
+    return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
+  };
+
+  const isTouch = isTouchDevice();
 
   const lenis = new Lenis({
-    duration: 1.2,
+    duration: isTouch ? 0.8 : 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
-    smoothTouch: false,
+    smoothTouch: isTouch, // Enable smooth touch scrolling on mobile
+    wheelMultiplier: isTouch ? 1 : 1.2,
+    touchMultiplier: isTouch ? 1.5 : 1,
   });
 
   // Sync Lenis with GSAP ScrollTrigger
@@ -420,23 +492,23 @@ function initMagneticButtons() {
 
 // ========== TIMELINE PROGRESS ==========
 function updateTimelineProgress() {
-  const timeline = document.querySelector('.timeline');
-  if (!timeline) return;
-
   const spine = document.querySelector('.tl-spine');
   const progress = document.querySelector('.tl-progress');
-  const timelineRect = timeline.getBoundingClientRect();
+  if (!spine || !progress) return;
   const spineRect = spine.getBoundingClientRect();
-
-  const scrollPercent =
-    (window.innerHeight - spineRect.top) /
-    (window.innerHeight + spineRect.height);
-  const progressHeight = Math.max(0, Math.min(100, scrollPercent * 100));
-
-  progress.style.height = progressHeight + '%';
+  const pct = Math.max(0, Math.min(100,
+    (window.innerHeight - spineRect.top) / (window.innerHeight + spineRect.height) * 100
+  ));
+  progress.style.height = pct + '%';
 }
 
-window.addEventListener('scroll', updateTimelineProgress);
+let tlTicking = false;
+window.addEventListener('scroll', () => {
+  if (!tlTicking) {
+    requestAnimationFrame(() => { updateTimelineProgress(); tlTicking = false; });
+    tlTicking = true;
+  }
+}, { passive: true });
 
 // ========== FOOTER MARQUEE =
 // =========
