@@ -715,29 +715,291 @@
   <!-- ================================================================
        FOOTER
   ================================================================ -->
-  <footer id="footer">
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <span class="fb-mark">RK</span>
-          <p>Rohit Karna</p>
-        </div>
-        <!-- <div class="footer-marquee">
-          <div class="mq-track">
-           <h1><span>Student || Learner || Explorer </span></h1>
-          </div>
-        </div> -->
+  <footer
+  id="footer"
+  style="
+    background:#111111;
+    padding:5rem 0 2rem;
+    overflow:hidden;
+    border-top:1px solid rgba(212,168,79,0.12);
+    position:relative;
+  "
+>
+  <div
+    style="
+      width:88%;
+      max-width:1400px;
+      margin:auto;
+    "
+  >
+
+    <!-- TOP -->
+    <div
+      style="
+        display:flex;
+        flex-direction:column;
+        gap:3.5rem;
+        margin-bottom:4rem;
+      "
+    >
+
+      <!-- BRAND -->
+      <div
+        style="
+          display:flex;
+          align-items:flex-start;
+          gap:1rem;
+          flex-direction:column;
+        "
+      >
+        <span
+          style="
+            width:54px;
+            height:54px;
+            border-radius:12px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:700;
+            font-size:1.15rem;
+            color:#f3efe7;
+            background:linear-gradient(135deg,#d7a85b,#7d5cff);
+            box-shadow:0 10px 30px rgba(125,92,255,0.18);
+          "
+        >
+          RK
+        </span>
+
+        <h2
+          style="
+            color:#f5f5f5;
+            margin:0;
+            font-size:2rem;
+            font-weight:600;
+            letter-spacing:-0.03em;
+          "
+        >
+          Rohit Karna
+        </h2>
       </div>
-      <div class="footer-bottom">
-        <p>2026 Rohit Karna. Crafted with intention.</p>
-        <div class="footer-nav">
-          <a href="#hero">Top â†‘</a>
-          <a href="#projects">Work</a>
-          <a href="#contact">Contact</a>
+
+      <!-- PREMIUM MARQUEE -->
+      <div
+        style="
+          width:100%;
+          overflow:hidden;
+          position:relative;
+          border-top:1px solid rgba(212,168,79,0.08);
+          border-bottom:1px solid rgba(212,168,79,0.08);
+          padding:1.4rem 0;
+        "
+      >
+
+        <!-- fade left -->
+        <div
+          style="
+            position:absolute;
+            left:0;
+            top:0;
+            width:120px;
+            height:100%;
+            background:linear-gradient(to right,#111111,transparent);
+            z-index:2;
+          "
+        ></div>
+
+        <!-- fade right -->
+        <div
+          style="
+            position:absolute;
+            right:0;
+            top:0;
+            width:120px;
+            height:100%;
+            background:linear-gradient(to left,#111111,transparent);
+            z-index:2;
+          "
+        ></div>
+
+        <div
+          style="
+            display:flex;
+            width:max-content;
+            animation:footerMarquee 26s linear infinite;
+            gap:3rem;
+            align-items:center;
+            white-space:nowrap;
+          "
+        >
+
+          <span
+            style="
+              color:rgba(255,255,255,0.16);
+              font-size:3rem;
+              font-weight:700;
+              text-transform:uppercase;
+              letter-spacing:-0.04em;
+            "
+          >
+            Creative Developer
+          </span>
+
+          <span
+            style="
+              color:#d4a84f;
+              font-size:1.1rem;
+            "
+          >
+            ✦
+          </span>
+
+          <span
+            style="
+              color:rgba(255,255,255,0.16);
+              font-size:3rem;
+              font-weight:700;
+              text-transform:uppercase;
+              letter-spacing:-0.04em;
+            "
+          >
+            Building Digital Experiences
+          </span>
+
+          <span
+            style="
+              color:#d4a84f;
+              font-size:1.1rem;
+            "
+          >
+            ✦
+          </span>
+
+          <span
+            style="
+              color:rgba(255,255,255,0.16);
+              font-size:3rem;
+              font-weight:700;
+              text-transform:uppercase;
+              letter-spacing:-0.04em;
+            "
+          >
+            Student • Learner • Explorer
+          </span>
+
+          <span
+            style="
+              color:#d4a84f;
+              font-size:1.1rem;
+            "
+          >
+            ✦
+          </span>
+
+          <span
+            style="
+              color:rgba(255,255,255,0.16);
+              font-size:3rem;
+              font-weight:700;
+              text-transform:uppercase;
+              letter-spacing:-0.04em;
+            "
+          >
+            Minimal • Intentional • Modern
+          </span>
+
         </div>
       </div>
     </div>
-  </footer>
+
+    <!-- BOTTOM -->
+    <div
+      style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:2rem;
+        flex-wrap:wrap;
+      "
+    >
+
+      <p
+        style="
+          margin:0;
+          color:rgba(255,255,255,0.62);
+          font-size:1rem;
+          font-weight:400;
+          letter-spacing:-0.01em;
+        "
+      >
+        © 2026 Rohit Karna. Crafted with intention.
+      </p>
+
+      <div
+        style="
+          display:flex;
+          align-items:center;
+          gap:2.5rem;
+        "
+      >
+
+        <a
+          href="#hero"
+          style="
+            color:#f3f3f3;
+            text-decoration:none;
+            font-size:1.05rem;
+            font-weight:600;
+            transition:0.3s ease;
+          "
+        >
+          Top ↑
+        </a>
+
+        <a
+          href="#projects"
+          style="
+            color:#f3f3f3;
+            text-decoration:none;
+            font-size:1.05rem;
+            font-weight:600;
+            transition:0.3s ease;
+          "
+        >
+          Work
+        </a>
+
+        <a
+          href="#contact"
+          style="
+            color:#f3f3f3;
+            text-decoration:none;
+            font-size:1.05rem;
+            font-weight:600;
+            transition:0.3s ease;
+          "
+        >
+          Contact
+        </a>
+
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+@keyframes footerMarquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+#footer a:hover{
+  color:#d4a84f !important;
+}
+</style>
 
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
