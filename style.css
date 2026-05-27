@@ -587,6 +587,43 @@ body.cursor-active #cursor {
   width: 100%;
 }
 
+/* ========== TYPEWRITER ========== */
+.typewriter-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-weight: 500;
+  color: var(--text-secondary);
+  min-height: 1.6em;
+  flex-wrap: nowrap;
+}
+
+.typewriter-prefix {
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.typewriter-text {
+  color: var(--gold);
+  font-weight: 600;
+  font-family: 'Syne', sans-serif;
+}
+
+.typewriter-cursor {
+  color: var(--gold);
+  font-weight: 300;
+  font-size: 1.1em;
+  line-height: 1;
+  animation: blink 0.75s step-end infinite;
+  margin-left: 1px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
 .hero-name {
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 800;
