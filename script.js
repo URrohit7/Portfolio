@@ -425,33 +425,88 @@ function initSmootherScroll() {
   gsap.ticker.lagSmoothing(0);
 }
 
-// ========== FORM SUBMISSION ==========
+// ========== FORM SUBMISSION — EmailJS ==========
+// ─────────────────────────────────────────────
+//  Fill in your three EmailJS values below.
+//  Dashboard → https://dashboard.emailjs.com
+// ─────────────────────────────────────────────
+const EMAILJS_PUBLIC_KEY  = '19ogIwCFk_RimhoEE';   // Account → API Keys
+const EMAILJS_SERVICE_ID  = 'service_bi01suj';   // Email Services → Service ID
+const EMAILJS_TEMPLATE_ID = 'template_23f4hea';  // Email Templates → Template ID
+
 function initForm() {
-  const form = document.getElementById('cform');
+  // Initialise EmailJS with your public key
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
 
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+  const form   = document.getElementById('cform');
+  if (!form) return;
 
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-      // Log form data (in real scenario, send to server)
-      console.log('Form submitted:', data);
+    const btn      = form.querySelector('button[type="submit"]');
+    const btnText  = btn.querySelector('.btn-text');
+    const original = btnText.textContent;
 
-      // Show success message
-      const button = form.querySelector('button[type="submit"]');
-      const originalText = button.querySelector('.btn-text').textContent;
-      button.querySelector('.btn-text').textContent = 'Message Sent! ✓';
-      button.disabled = true;
+    // Basic client-side validation
+    const name    = form.querySelector('[name="name"]').value.trim();
+    const email   = form.querySelector('[name="email"]').value.trim();
+    const message = form.querySelector('[name="message"]').value.trim();
+
+    if (!name || !email || !message) {
+      showFormStatus(form, 'error', 'Please fill in all required fields.');
+      return;
+    }
+
+    // Loading state
+    btnText.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+
+      // Success
+      btnText.textContent = '✓ Message Sent!';
+      btn.style.background = '#22c55e';
+      showFormStatus(form, 'success', 'Your message was sent. I\'ll get back to you soon!');
+      form.reset();
 
       setTimeout(() => {
-        form.reset();
-        button.querySelector('.btn-text').textContent = originalText;
-        button.disabled = false;
-      }, 2000);
-    });
-  }
+        btnText.textContent = original;
+        btn.disabled = false;
+        btn.style.background = '';
+        clearFormStatus(form);
+      }, 4000);
+
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      btnText.textContent = '✗ Failed — Try Again';
+      btn.style.background = '#ef4444';
+      showFormStatus(form, 'error', 'Something went wrong. Please try again or email me directly.');
+
+      setTimeout(() => {
+        btnText.textContent = original;
+        btn.disabled = false;
+        btn.style.background = '';
+        clearFormStatus(form);
+      }, 4000);
+    }
+  });
+}
+
+function showFormStatus(form, type, message) {
+  clearFormStatus(form);
+  const el = document.createElement('p');
+  el.className = 'form-status form-status--' + type;
+  el.textContent = message;
+  form.appendChild(el);
+}
+
+function clearFormStatus(form) {
+  const existing = form.querySelector('.form-status');
+  if (existing) existing.remove();
 }
 
 // ========== TILT EFFECT (desktop only) ==========
