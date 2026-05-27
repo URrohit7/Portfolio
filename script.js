@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCountUp();
   initSmootherScroll();
   initSkillBars();
+  initTypewriter();
 });
 
 // ========== MOBILE OPTIMIZATIONS ==========
@@ -591,7 +592,60 @@ function initHeroCanvas() {
 
 initHeroCanvas();
 
-// ========== SMOOTH SCROLL ANCHOR LINKS ==========
+// ========== TYPEWRITER ==========
+function initTypewriter() {
+  const el = document.getElementById('typewriter');
+  if (!el) return;
+
+  const words = [
+    'Tech Geek',
+    'Commerce Enthusiast',
+    'Video Editor',
+    'Business Strategist',
+  ];
+
+  let wordIndex  = 0;
+  let charIndex  = 0;
+  let deleting   = false;
+  const typeSpeed   = 80;   // ms per character while typing
+  const deleteSpeed = 40;   // ms per character while deleting
+  const pauseAfter  = 1600; // ms pause at full word
+  const pauseEmpty  = 400;  // ms pause at empty string
+
+  function tick() {
+    const current = words[wordIndex];
+
+    if (!deleting) {
+      // Type one character
+      el.textContent = current.slice(0, charIndex + 1);
+      charIndex++;
+
+      if (charIndex === current.length) {
+        // Finished typing — pause then start deleting
+        deleting = true;
+        setTimeout(tick, pauseAfter);
+        return;
+      }
+      setTimeout(tick, typeSpeed);
+    } else {
+      // Delete one character
+      el.textContent = current.slice(0, charIndex - 1);
+      charIndex--;
+
+      if (charIndex === 0) {
+        // Finished deleting — move to next word
+        deleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        setTimeout(tick, pauseEmpty);
+        return;
+      }
+      setTimeout(tick, deleteSpeed);
+    }
+  }
+
+  // Small initial delay so it starts after hero entrance animation
+  setTimeout(tick, 1200);
+}
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
