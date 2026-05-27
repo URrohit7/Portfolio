@@ -57,22 +57,56 @@ function updateThemeToggleIcon(theme) {
   }
 }
 
-// ========== LOADER ==========
+// ========== LOADER (percentage-driven) ==========
 function initLoader() {
-  const loader = document.getElementById('loader');
-  const loaderWipe = document.querySelector('.loader-wipe');
+  const loader    = document.getElementById('loader');
+  const fill      = document.getElementById('loader-fill');
+  const pct       = document.getElementById('loader-percent');
+  const label     = document.getElementById('loader-label');
 
-  // Simulate loading time
-  setTimeout(() => {
-    loaderWipe.style.opacity = '0';
-    loaderWipe.style.pointerEvents = 'none';
-    loader.style.opacity = '0';
-    loader.style.pointerEvents = 'none';
-  }, 2800);
+  let progress = 0;
+  let done = false;
+
+  const labels = ['Loading…', 'Almost there…', 'Ready!'];
+
+  function setProgress(val) {
+    progress = Math.min(val, 100);
+    if (fill)  fill.style.width  = progress + '%';
+    if (pct)   pct.textContent   = Math.round(progress) + '%';
+    if (label) label.textContent = progress < 50 ? labels[0] : progress < 90 ? labels[1] : labels[2];
+  }
+
+  // Tick up quickly to ~80% while resources load
+  let fake = 0;
+  const ticker = setInterval(() => {
+    fake += Math.random() * 18;
+    if (fake >= 80) { clearInterval(ticker); fake = 80; }
+    if (!done) setProgress(fake);
+  }, 120);
+
+  // When everything is loaded, jump to 100% and hide
+  function finish() {
+    if (done) return;
+    done = true;
+    clearInterval(ticker);
+    setProgress(100);
+    setTimeout(() => {
+      loader.classList.add('hidden');
+    }, 400);
+  }
+
+  if (document.readyState === 'complete') {
+    finish();
+  } else {
+    window.addEventListener('load', finish);
+    // Safety net — never block user more than 3s
+    setTimeout(finish, 3000);
+  }
 }
 
-// ========== CUSTOM CURSOR ==========
+// ========== CUSTOM CURSOR (desktop only) ==========
 function initCursor() {
+  if (window.matchMedia('(hover: none)').matches) return; // no cursor on touch
   const cursor = document.getElementById('cursor');
   const cursorLabel = document.querySelector('.c-label');
   const magneticElements = document.querySelectorAll('.magnetic');
@@ -133,8 +167,9 @@ function initScrollProgress() {
   });
 }
 
-// ========== MOUSE GLOW ==========
+// ========== MOUSE GLOW (desktop only) ==========
 function initMouseGlow() {
+  if (window.matchMedia('(hover: none)').matches) return;
   const mouseGlow = document.getElementById('mouse-glow');
 
   document.addEventListener('mousemove', (e) => {
@@ -164,9 +199,10 @@ function initNavigation() {
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
-      nav.style.background = 'rgba(10, 10, 10, 0.95)';
+      nav.style.backdropFilter = 'blur(20px)';
+      nav.style.borderBottomColor = 'var(--border-color)';
     } else {
-      nav.style.background = 'rgba(10, 10, 10, 0.8)';
+      nav.style.backdropFilter = 'blur(10px)';
     }
   });
 }
@@ -294,6 +330,7 @@ function countUp(element, target) {
 // ========== SMOOTHER SCROLL WITH LENIS ==========
 function initSmootherScroll() {
   if (typeof Lenis === 'undefined') return;
+  if (window.matchMedia('(hover: none)').matches) return; // native scroll on touch
 
   const lenis = new Lenis({
     duration: 1.2,
@@ -342,8 +379,9 @@ function initForm() {
   }
 }
 
-// ========== TILT EFFECT ==========
+// ========== TILT EFFECT (desktop only) ==========
 function initTilt() {
+  if (window.matchMedia('(hover: none)').matches) return; // skip on touch
   const tiltElements = document.querySelectorAll('.tilt');
 
   tiltElements.forEach((element) => {
@@ -351,13 +389,10 @@ function initTilt() {
       const rect = element.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-
       const rotateX = ((y - centerY) / centerY) * 5;
       const rotateY = ((centerX - x) / centerX) * 5;
-
       element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
     });
 
@@ -367,8 +402,9 @@ function initTilt() {
   });
 }
 
-// ========== MAGNETIC BUTTONS ==========
+// ========== MAGNETIC BUTTONS (desktop only) ==========
 function initMagneticButtons() {
+  if (window.matchMedia('(hover: none)').matches) return; // skip on touch
   const buttons = document.querySelectorAll('.magnetic');
 
   buttons.forEach((button) => {
@@ -402,7 +438,8 @@ function updateTimelineProgress() {
 
 window.addEventListener('scroll', updateTimelineProgress);
 
-// ========== FOOTER MARQUEE ==========
+// ========== FOOTER MARQUEE =
+// =========
 function initFooterMarquee() {
   const marquee = document.querySelector('.mq-track');
   if (marquee) {
@@ -418,6 +455,11 @@ initFooterMarquee();
 function initHeroCanvas() {
   const canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
+  // Skip on mobile — saves battery and CPU
+  if (window.matchMedia('(hover: none)').matches) {
+    canvas.style.display = 'none';
+    return;
+  }
 
   const ctx = canvas.getContext('2d');
 
@@ -429,52 +471,50 @@ function initHeroCanvas() {
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // Simple animated background pattern
   const particles = [];
-  const particleCount = 50;
+  const particleCount = 40; // reduced from 50
 
   class Particle {
     constructor() {
+      this.reset();
+    }
+    reset() {
       this.x = Math.random() * canvas.width;
       this.y = Math.random() * canvas.height;
-      this.radius = Math.random() * 2 + 1;
-      this.vx = Math.random() * 0.5 - 0.25;
-      this.vy = Math.random() * 0.5 - 0.25;
-      this.opacity = Math.random() * 0.5 + 0.2;
+      this.radius = Math.random() * 1.5 + 0.5;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = (Math.random() - 0.5) * 0.4;
+      this.opacity = Math.random() * 0.4 + 0.1;
     }
-
     draw() {
       ctx.fillStyle = `rgba(212, 168, 83, ${this.opacity})`;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
       ctx.fill();
     }
-
     update() {
       this.x += this.vx;
       this.y += this.vy;
-
       if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
       if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
     }
   }
 
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-  }
+  for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
+  let animId;
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    particles.forEach((particle) => {
-      particle.update();
-      particle.draw();
-    });
-
-    requestAnimationFrame(animate);
+    particles.forEach(p => { p.update(); p.draw(); });
+    animId = requestAnimationFrame(animate);
   }
-
   animate();
+
+  // Pause when tab hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimationFrame(animId);
+    else animate();
+  });
 }
 
 initHeroCanvas();
