@@ -6,7 +6,6 @@
   --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --shadow: 0 20px 60px rgba(212, 168, 83, 0.15);
 }
-
 /* ========== DARK THEME (DEFAULT) ========== */
 html[data-theme="dark"],
 html:not([data-theme]) {
@@ -49,14 +48,15 @@ html[data-theme="light"] {
 }
 
 /* ========== RESET & BASE ========== */
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Only use JS smooth scroll (Lenis) — native smooth-scroll conflicts */
+  scroll-behavior: auto;
 }
 
 body {
@@ -67,6 +67,16 @@ body {
   line-height: 1.6;
   font-size: 16px;
   transition: background-color var(--transition), color var(--transition);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Prevent tap highlight flash on all interactive elements */
+a, button, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* ========== TYPOGRAPHY ========== */
@@ -88,7 +98,7 @@ h3 {
 a {
   color: inherit;
   text-decoration: none;
-  transition: all var(--transition);
+  transition: color var(--transition), opacity var(--transition);
 }
 
 em {
@@ -422,14 +432,17 @@ body.cursor-active #cursor {
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.3;
+  filter: blur(60px);
+  opacity: 0.25;
   mix-blend-mode: screen;
+  /* Promote to own layer — keeps scroll smooth */
+  will-change: transform;
+  contain: strict;
 }
 
 .orb-a {
-  width: 300px;
-  height: 300px;
+  width: 280px;
+  height: 280px;
   background: var(--gold);
   top: 10%;
   right: 10%;
@@ -437,8 +450,8 @@ body.cursor-active #cursor {
 }
 
 .orb-b {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   background: var(--purple);
   bottom: 10%;
   left: 10%;
@@ -446,8 +459,8 @@ body.cursor-active #cursor {
 }
 
 .orb-c {
-  width: 250px;
-  height: 250px;
+  width: 220px;
+  height: 220px;
   background: var(--gold);
   bottom: 20%;
   right: 20%;
@@ -456,7 +469,13 @@ body.cursor-active #cursor {
 
 @keyframes float {
   0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(50px, -50px); }
+  50% { transform: translate(30px, -30px); }
+}
+
+/* Kill expensive orb effects on mobile */
+@media (hover: none) {
+  .orb { display: none; }
+  .noise { display: none; }
 }
 
 .noise {
@@ -615,6 +634,7 @@ body.cursor-active #cursor {
   order: 2;
   grid-column: 2;
   grid-row: 1 / span 2;
+  will-change: transform;
 }
 
 .photo-frame {
@@ -683,12 +703,12 @@ body.cursor-active #cursor {
 .float-chip {
   position: absolute;
   padding: 0.7rem 1.2rem;
-  background: rgba(212, 168, 83, 0.15);
-  border: 1px solid rgba(212, 168, 83, 0.3);
+  background: rgba(212, 168, 83, 0.18);
+  border: 1px solid rgba(212, 168, 83, 0.35);
   border-radius: 50px;
   font-size: 0.85rem;
-  backdrop-filter: blur(10px);
   animation: float 6s ease-in-out infinite;
+  white-space: nowrap;
 }
 
 .chip-1 {
@@ -875,6 +895,7 @@ section {
   position: relative;
   z-index: 2;
   padding: 6rem 2rem;
+  contain: layout;
 }
 
 /* Alternating section tint for visual rhythm */
@@ -1673,18 +1694,14 @@ section {
 .rv-left,
 .rv-right {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--d, 0s),
-              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--d, 0s);
+  transform: translateY(24px);
+  /* Delay only opacity — transform starts immediately for smoothness */
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
 }
 
-.rv-left {
-  transform: translateX(-30px);
-}
-
-.rv-right {
-  transform: translateX(30px);
-}
+.rv-left  { transform: translateX(-24px); }
+.rv-right { transform: translateX(24px); }
 
 .rv-up.revealed,
 .rv-left.revealed,
@@ -1837,6 +1854,9 @@ section {
   .btn {
     width: 100%;
     justify-content: center;
+    /* Ensure touch target >= 48px */
+    min-height: 48px;
+    font-size: 1rem;
   }
 
   /* Stats bar */
@@ -1901,7 +1921,16 @@ section {
     gap: 0.8rem;
   }
 
-  .tech-card { padding: 1.2rem 0.8rem; }
+  .tech-card { 
+    padding: 1.2rem 0.8rem;
+    /* Better touch targets */
+    min-height: 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
   .ti { font-size: 1.8rem; }
   .tech-card span { font-size: 0.8rem; }
 
@@ -1912,6 +1941,19 @@ section {
 
   /* Contact */
   .contact-form { padding: 1.2rem; }
+
+  /* Contact form inputs */
+  input,
+  textarea,
+  select {
+    min-height: 48px;
+    font-size: 16px; /* Prevents auto-zoom on iOS */
+    padding: 0.8rem 1rem;
+  }
+
+  textarea {
+    min-height: 120px;
+  }
 
   /* Footer */
   .footer-top {
@@ -1937,6 +1979,12 @@ section {
     gap: 0.6rem;
   }
 
+  .social-btn {
+    /* 48px minimum touch target */
+    min-width: 48px;
+    min-height: 48px;
+  }
+
   /* Disable tilt on touch */
   .tilt { transform: none !important; }
 
@@ -1944,8 +1992,49 @@ section {
   .scroll-hint { display: none; }
 
   /* Nav */
-  .nav-inner { padding: 1rem 1.2rem; }
-  .theme-toggle { margin-left: 0.5rem; }
+  .nav-inner { 
+    padding: 1rem 1.2rem;
+  }
+  
+  .nav-brand {
+    font-size: 1rem;
+  }
+  
+  .theme-toggle { 
+    margin-left: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mobile menu links - better touch targets */
+  .mobile-menu a {
+    padding: 1rem 0;
+    font-size: 1.1rem;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Faster, snappier animations on mobile */
+  .rv-up, .rv-left, .rv-right {
+    transition-duration: 0.45s;
+  }
+}
+
+/* ========== REDUCED MOTION ========== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .rv-up, .rv-left, .rv-right {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ========== UTILITY CLASSES ========== */
