@@ -1,6 +1,6 @@
 // ========== INITIALIZATION ==========
 document.addEventListener('DOMContentLoaded', () => {
-  initMobileOptimizations(); // Detect and optimize for mobile
+  initMobileOptimizations();
   initThemeToggle();
   initLoader();
   initCursor();
@@ -17,54 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmootherScroll();
   initSkillBars();
   initTypewriter();
+  initFooterMarquee();
+  initHeroCanvas();
+  initBackToTop();
+  initMusicPlayer();
 });
 
 // ========== MOBILE OPTIMIZATIONS ==========
 function initMobileOptimizations() {
-  const isMobile = window.innerWidth < 768 || 
-                   (('ontouchstart' in window) && navigator.maxTouchPoints > 0);
+  const isMobile = window.matchMedia('(hover: none)').matches;
+  if (!isMobile) return;
 
-  if (isMobile) {
-    // Add mobile class to body
-    document.body.classList.add('is-mobile');
-    
-    // Reduce animation complexity on mobile
-    document.documentElement.style.setProperty('--transition', '0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)');
-    
-    // Disable parallax on mobile for better performance
-    window.disableParallax = true;
-    
-    // Prevent zoom on double-tap
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', (e) => {
-      const now = Date.now();
-      if (now - lastTouchEnd <= 300) {
-        e.preventDefault();
-      }
-      lastTouchEnd = now;
-    }, false);
+  document.body.classList.add('is-mobile');
 
-    // Optimize viewport for mobile
-    const viewport = document.querySelector('meta[name="viewport"]');
-    if (viewport) {
-      viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes');
-    }
-
-    // Enable momentum scrolling for iOS
-    document.body.style.webkitOverflowScrolling = 'touch';
-
-    // Listen for window resize to handle orientation changes
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        // Refresh scroll-triggered animations on orientation change
-        if (window.ScrollTrigger) {
-          ScrollTrigger.refresh();
-        }
-      }, 250);
-    });
-  }
+  // Handle orientation change — refresh ScrollTrigger
+  window.addEventListener('resize', () => {
+    clearTimeout(window._resizeTimer);
+    window._resizeTimer = setTimeout(() => {
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    }, 250);
+  }, { passive: true });
 }
 
 // ========== THEME TOGGLE ==========
@@ -394,35 +366,25 @@ function countUp(element, target) {
 
 // ========== SMOOTHER SCROLL WITH LENIS ==========
 function initSmootherScroll() {
-  if (typeof Lenis === 'undefined') return;
+  if (typeof window.Lenis === 'undefined') return;
+  if (window.matchMedia('(hover: none)').matches) return; // native scroll on touch
 
-  // Detect if device supports touch
-  const isTouchDevice = () => {
-    return (('ontouchstart' in window) ||
-            (navigator.maxTouchPoints > 0) ||
-            (navigator.msMaxTouchPoints > 0));
-  };
-
-  const isTouch = isTouchDevice();
-
-  const lenis = new Lenis({
-    duration: isTouch ? 0.8 : 1.2,
+  const lenis = new window.Lenis({
+    duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
-    smoothTouch: isTouch, // Enable smooth touch scrolling on mobile
-    wheelMultiplier: isTouch ? 1 : 1.2,
-    touchMultiplier: isTouch ? 1.5 : 1,
+    smoothTouch: false,
   });
 
-  // Sync Lenis with GSAP ScrollTrigger
-  lenis.on('scroll', ScrollTrigger.update);
-
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-
-  // Disable GSAP's default RAF so Lenis drives it
-  gsap.ticker.lagSmoothing(0);
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    // Fallback RAF loop if GSAP not available
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
 }
 
 // ========== FORM SUBMISSION — EmailJS ==========
@@ -705,6 +667,51 @@ function initTypewriter() {
   const startDelay = window.matchMedia('(hover: none)').matches ? 400 : 1200;
   setTimeout(tick, startDelay);
 }
+
+// ========== BACK TO TOP ==========
+function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+// ========== MUSIC PLAYER ==========
+function initMusicPlayer() {
+  const audio  = document.getElementById('bg-music');
+  const toggle = document.getElementById('music-toggle');
+  const bars   = document.getElementById('music-bars');
+  const label  = toggle ? toggle.querySelector('.music-label') : null;
+  if (!audio || !toggle) return;
+
+  let playing = false;
+  audio.volume = 0.25;
+
+  toggle.addEventListener('click', () => {
+    if (playing) {
+      audio.pause();
+      playing = false;
+      bars.classList.remove('playing');
+      if (label) label.textContent = 'Ambient';
+    } else {
+      audio.play()
+        .then(() => { playing = true; bars.classList.add('playing'); if (label) label.textContent = 'Playing'; })
+        .catch(() => {});
+    }
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && playing) audio.pause();
+    else if (!document.hidden && playing) audio.play().catch(() => {});
+  });
+}
+
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
