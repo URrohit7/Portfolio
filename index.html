@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rohit Karna — Commerce Student & Entrepreneur</title>
-  <meta name="description" content="Portfolio of Rohit Karna — Commerce Student, Entrepreneur & Visionary from Nepal." />
+  <title>Rohit Karna &rdquo;” Commerce Student & Entrepreneur</title>
+  <meta name="description" content="Portfolio of Rohit Karna &rdquo;” +2 Commerce Student from Monastic College, Janakpurdham , Nepal." />
 
-  <!-- Premium Fonts -->
+  <!-- Preconnect to speed up font & CDN loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Fonts &rdquo;” display=swap prevents invisible text during load -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:wght@400;600&family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
 
-  <!-- Lenis Smooth Scroll -->
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.42/dist/lenis.min.js"></script>
-
+  <!-- CSS first &rdquo;” render-blocking is fine for styles -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Scripts deferred &rdquo;” don't block first paint -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.42/dist/lenis.min.js" defer></script>
 </head>
 <body>
 
@@ -27,12 +31,12 @@
       <div class="loader-monogram">
         <span class="lm-r">R</span><span class="lm-k">K</span>
       </div>
+      <div class="loader-percent" id="loader-percent">0%</div>
       <div class="loader-track">
-        <div class="loader-fill"></div>
+        <div class="loader-fill" id="loader-fill"></div>
       </div>
-      <p class="loader-label">Crafting experience…</p>
+      <p class="loader-label" id="loader-label">Loading&rdquo;¦</p>
     </div>
-    <div class="loader-wipe"></div>
   </div>
 
   <!-- ========== CUSTOM CURSOR ========== -->
@@ -109,18 +113,18 @@
         <!-- Availability badge -->
         <div class="hero-badge">
           <span class="badge-dot"></span>
-          Available for collaborations
+          Open to opportunities &amp; collaborations
         </div>
 
         <!-- Name and Title -->
         <div class="hero-name-row">
-          <h1 style="font-size: 2.5rem; font-weight: 800; margin: 0 0 0.5rem 0; line-height: 1.2;">Rohit Karna</h1>
-          <p style="font-size: 1rem; color: rgba(232, 232, 232, 0.7); margin: 0; font-weight: 500; margin-bottom: 1.5rem;">Commerce Student · Entrepreneur · Visionary</p>
+          <h1 class="hero-h1">Rohit Karna</h1>
+          <p class="hero-subtitle">+2 Commerce Student Â· Aspiring Entrepreneur Â· Nepal</p>
         </div>
 
         <!-- Subtitle -->
         <div class="hero-meta">
-          <p class="hero-desc">Building ventures that create meaningful impact through strategy, courage, and relentless ambition.</p>
+          <p class="hero-desc">A commerce student from Janakpurdham with a passion for business, finance, and building things from the ground up &rdquo;” one idea at a time.</p>
         </div>
 
         <!-- CTA row -->
@@ -177,9 +181,9 @@
           </div>
         </div>
         <!-- Floating chips -->
-        <div class="float-chip chip-1">🎓 Commerce Student</div>
-        <div class="float-chip chip-2">💡 Entrepreneur</div>
-        <div class="float-chip chip-3">🌍 Nepal</div>
+        <div class="float-chip chip-1"> +2 Commerce</div>
+        <div class="float-chip chip-2">&#x1F4DA; Monastic College</div>
+        <div class="float-chip chip-3">Janakpurdham</div>
       </div>
 
     </div>
@@ -193,23 +197,23 @@
     <!-- Stats strip -->
     <div class="hero-stats-bar">
       <div class="hstat">
-        <span class="hstat-n" data-target="5">0</span><sup>+</sup>
-        <p>Ventures Built</p>
+        <span class="hstat-n" data-target="10">0</span><sup>+</sup>
+        <p>Years of Study</p>
       </div>
       <div class="hstat-divider"></div>
       <div class="hstat">
-        <span class="hstat-n" data-target="20">0</span><sup>+</sup>
-        <p>Partnerships</p>
+        <span class="hstat-n" data-target="2">0</span>
+        <p>Schools</p>
       </div>
       <div class="hstat-divider"></div>
       <div class="hstat">
-        <span class="hstat-n" data-target="3">0</span><sup>+</sup>
-        <p>Years Active</p>
+        <span class="hstat-n" data-target="4">0</span><sup>+</sup>
+        <p>Projects</p>
       </div>
       <div class="hstat-divider"></div>
       <div class="hstat">
-        <span class="hstat-n" data-target="100">0</span><sup>+</sup>
-        <p>Mentees</p>
+        <span class="hstat-n" data-target="100">0</span><sup>%</sup>
+        <p>Committed</p>
       </div>
     </div>
   </section>
@@ -228,10 +232,10 @@
 
       <div class="about-grid">
         <div class="about-copy">
-          <h2 class="sec-title rv-up">The mind behind<br><em>the ventures.</em></h2>
-          <p class="body-text rv-up">I'm Rohit Karna — a commerce student with an entrepreneurial spirit that refuses to stay within the lines of textbooks. I believe real education happens at the intersection of theory and bold execution.</p>
-          <p class="body-text rv-up" style="--d:.12s">From building startups to forging strategic alliances, I approach every challenge with a blend of analytical rigor and creative audacity. My work lives in the space between strategy and storytelling.</p>
-          <p class="body-text rv-up" style="--d:.24s">When I'm not building ventures, I'm reading about markets, mentoring aspiring entrepreneurs, or finding the next opportunity hiding in plain sight.</p>
+          <h2 class="sec-title rv-up">Just a student<br><em>with big ideas.</em></h2>
+          <p class="body-text rv-up">I'm Rohit Karna , a +2 Commerce student at Monastic College,Janakpurdham . I completed my SEE from New English Boarding School and have been passionate about business and finance ever since.</p>
+          <p class="body-text rv-up" style="--d:.12s">Commerce isn't just a subject for me â... it's a lens I use to understand the world. I enjoy learning about markets, accounting, economics, and how businesses actually work beyond the textbook.</p>
+          <p class="body-text rv-up" style="--d:.24s">Outside of class I work on small personal projects, read about entrepreneurship, and try to connect what I learn in school with real-world problems around me.</p>
           <div class="about-sig rv-up" style="--d:.36s">
             <svg viewBox="0 0 220 55" fill="none" xmlns="http://www.w3.org/2000/svg" class="sig-svg">
               <path class="sig-path" d="M8 38 C20 12 38 48 58 28 C76 10 92 46 116 36 C138 26 156 44 190 22 C204 14 212 30 218 20" stroke="#d4a853" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -243,21 +247,21 @@
         <div class="about-cards">
           <div class="acard glass rv-right">
             <div class="glow-corner"></div>
-            <span class="acard-icon">💭</span>
-            <h3>Philosophy</h3>
-            <p>"The best businesses solve real problems for real people. Everything else is noise."</p>
+            <span class="acard-icon">&#x1F3EB;</span>
+            <h3>SEE</h3>
+            <p>Completed Secondary Education Examination (SEE) from New English Secondary Boarding School, Janakpurdham.</p>
           </div>
           <div class="acard glass rv-right" style="--d:.15s">
             <div class="glow-corner"></div>
-            <span class="acard-icon">📍</span>
-            <h3>Currently</h3>
-            <p>Pursuing B.Com while building and scaling entrepreneurial ventures across Nepal and beyond.</p>
+            <span class="acard-icon">&#x1F4D6;</span>
+            <h3>+2 Commerce</h3>
+            <p>Currently studying +2 Commerce at Monastic College, Janakpurdham include Accountancy, Economics, Business Mathematics &amp; Finance.</p>
           </div>
           <div class="acard glass rv-right" style="--d:.3s">
             <div class="glow-corner"></div>
-            <span class="acard-icon">🚀</span>
-            <h3>Vision</h3>
-            <p>To build ventures that create meaningful impact and inspire the next wave of Nepali entrepreneurs.</p>
+            <span class="acard-icon">&#x1F3AF;</span>
+            <h3>Goal</h3>
+            <p>Aiming to pursue a Bachelor's in Business or Commerce and eventually build something meaningful in Nepal's growing economy.</p>
           </div>
         </div>
       </div>
@@ -280,42 +284,42 @@
 
       <div class="skills-grid">
         <div class="skill-row rv-up" style="--d:0s">
-          <div class="skill-meta"><span class="skill-lbl">Business Strategy</span><span class="skill-val">92%</span></div>
-          <div class="skill-track"><div class="skill-bar" data-w="92"></div></div>
-        </div>
-        <div class="skill-row rv-up" style="--d:.08s">
-          <div class="skill-meta"><span class="skill-lbl">Financial Analysis</span><span class="skill-val">88%</span></div>
-          <div class="skill-track"><div class="skill-bar" data-w="88"></div></div>
-        </div>
-        <div class="skill-row rv-up" style="--d:.16s">
-          <div class="skill-meta"><span class="skill-lbl">Marketing &amp; Branding</span><span class="skill-val">85%</span></div>
+          <div class="skill-meta"><span class="skill-lbl">Accountancy</span><span class="skill-val">85%</span></div>
           <div class="skill-track"><div class="skill-bar" data-w="85"></div></div>
         </div>
+        <div class="skill-row rv-up" style="--d:.08s">
+          <div class="skill-meta"><span class="skill-lbl">Economics</span><span class="skill-val">80%</span></div>
+          <div class="skill-track"><div class="skill-bar" data-w="80"></div></div>
+        </div>
+        <div class="skill-row rv-up" style="--d:.16s">
+          <div class="skill-meta"><span class="skill-lbl">Business Studies</span><span class="skill-val">82%</span></div>
+          <div class="skill-track"><div class="skill-bar" data-w="82"></div></div>
+        </div>
         <div class="skill-row rv-up" style="--d:.24s">
-          <div class="skill-meta"><span class="skill-lbl">Leadership</span><span class="skill-val">90%</span></div>
-          <div class="skill-track"><div class="skill-bar" data-w="90"></div></div>
+          <div class="skill-meta"><span class="skill-lbl">Mathematics / Finance</span><span class="skill-val">75%</span></div>
+          <div class="skill-track"><div class="skill-bar" data-w="75"></div></div>
         </div>
         <div class="skill-row rv-up" style="--d:.32s">
-          <div class="skill-meta"><span class="skill-lbl">Negotiation</span><span class="skill-val">87%</span></div>
-          <div class="skill-track"><div class="skill-bar" data-w="87"></div></div>
+          <div class="skill-meta"><span class="skill-lbl">Communication &amp; Presentation</span><span class="skill-val">78%</span></div>
+          <div class="skill-track"><div class="skill-bar" data-w="78"></div></div>
         </div>
         <div class="skill-row rv-up" style="--d:.4s">
-          <div class="skill-meta"><span class="skill-lbl">Public Speaking</span><span class="skill-val">83%</span></div>
-          <div class="skill-track"><div class="skill-bar" data-w="83"></div></div>
+          <div class="skill-meta"><span class="skill-lbl">Computer &amp; MS Office</span><span class="skill-val">72%</span></div>
+          <div class="skill-track"><div class="skill-bar" data-w="72"></div></div>
         </div>
       </div>
 
       <!-- Soft skill pills -->
       <div class="pill-cloud rv-up" style="--d:.5s">
         <span class="pill">Critical Thinking</span>
+        <span class="pill">Time Management</span>
+        <span class="pill">Team Work</span>
         <span class="pill">Problem Solving</span>
-        <span class="pill">Creative Direction</span>
-        <span class="pill">Team Building</span>
-        <span class="pill">Product Vision</span>
-        <span class="pill">Growth Mindset</span>
-        <span class="pill">Networking</span>
-        <span class="pill">Decision Making</span>
-        <span class="pill">Storytelling</span>
+        <span class="pill">Leadership</span>
+        <span class="pill">Curiosity</span>
+        <span class="pill">Adaptability</span>
+        <span class="pill">Communication</span>
+        <span class="pill">Self-Discipline</span>
       </div>
 
     </div>
@@ -330,7 +334,7 @@
       <div class="sec-label rv-up">
         <span class="sec-num">03</span>
         <span class="sec-dash"></span>
-        <span class="sec-txt">Experience</span>
+        <span class="sec-txt">Education</span>
       </div>
 
       <h2 class="sec-title rv-up">The journey<br><em>so far.</em></h2>
@@ -342,11 +346,11 @@
           <div class="tl-dot"><span></span></div>
           <div class="tl-card glass">
             <div class="glow-corner"></div>
-            <time>2024 — Present</time>
-            <h3>Founder &amp; CEO</h3>
-            <h4>RK Ventures · Kathmandu, Nepal</h4>
-            <p>Founded and currently leading a business consulting and trading firm serving SMEs across Kathmandu Valley. Oversee operations, client acquisition, and strategic growth — growing the client base to 30+ businesses within the first year.</p>
-            <div class="tl-tags"><span>Strategy</span><span>Leadership</span><span>Growth</span></div>
+            <time>2024 &rdquo;” Present</time>
+            <h3>+2 Commerce</h3>
+            <h4>Monastic College Â· Janakpurdham, Nepal</h4>
+            <p>Currently in my +2 level studying Commerce stream. Core subjects include Accountancy, Economics, Business Studies, Finance and Mathematics. Actively participating in college activities and developing a strong foundation in business concepts.</p>
+            <div class="tl-tags"><span>Accountancy</span><span>Economics</span><span>Business Studies</span></div>
           </div>
         </div>
 
@@ -354,11 +358,11 @@
           <div class="tl-dot"><span></span></div>
           <div class="tl-card glass">
             <div class="glow-corner"></div>
-            <time>2023 — 2024</time>
-            <h3>Business Development Executive</h3>
-            <h4>Himalayan Trade Network · Kathmandu, Nepal</h4>
-            <p>Identified and secured 15+ B2B partnerships with local manufacturers and distributors. Developed pitch decks, negotiated contracts, and expanded the company's partner network across 3 provinces.</p>
-            <div class="tl-tags"><span>Partnerships</span><span>Sales</span><span>B2B</span></div>
+            <time>2023</time>
+            <h3>SEE &rdquo;” Secondary Education Examination</h3>
+            <h4>New English Boarding School Â· Janakpurdham, Nepal</h4>
+            <p>Completed my SEE from New English Boarding School. Developed a strong academic base across core subjects and discovered my interest in commerce, business, and how the economy works.</p>
+            <div class="tl-tags"><span>SEE</span><span>Science</span><span>Mathematics</span></div>
           </div>
         </div>
 
@@ -366,23 +370,11 @@
           <div class="tl-dot"><span></span></div>
           <div class="tl-card glass">
             <div class="glow-corner"></div>
-            <time>2022 — Present</time>
-            <h3>Bachelor of Commerce (B.Com)</h3>
-            <h4>Tribhuvan University · Kathmandu, Nepal</h4>
-            <p>Pursuing B.Com with specialisation in Entrepreneurship &amp; Financial Management. Consistently ranked in the top 10% of the batch while simultaneously running active ventures outside the classroom.</p>
-            <div class="tl-tags"><span>Finance</span><span>Accounting</span><span>Economics</span></div>
-          </div>
-        </div>
-
-        <div class="tl-item rv-right">
-          <div class="tl-dot"><span></span></div>
-          <div class="tl-card glass">
-            <div class="glow-corner"></div>
-            <time>2021</time>
-            <h3>Co-Founder</h3>
-            <h4>NepalMart Online · Lalitpur, Nepal</h4>
-            <p>Co-founded a hyperlocal e-commerce platform connecting neighbourhood shops with digital buyers. Onboarded 80+ vendors in 6 months and processed over NPR 2M in transactions before pivoting the model.</p>
-            <div class="tl-tags"><span>E-Commerce</span><span>Startup</span><span>Operations</span></div>
+            <time>2013 &rdquo;” 2023</time>
+            <h3>School Education</h3>
+            <h4>New English Boarding School Â· Janakpurdham, Nepal</h4>
+            <p>Completed my full school journey from early grades through SEE at New English Boarding School &rdquo;” building discipline, curiosity, and a love for learning along the way.</p>
+            <div class="tl-tags"><span>Academics</span><span>Extracurriculars</span><span>Growth</span></div>
           </div>
         </div>
 
@@ -414,17 +406,13 @@
             <div class="proj-overlay"><span>View Project</span></div>
           </div>
           <div class="proj-body">
-            <div class="proj-tags"><span>E-Commerce</span><span>Strategy</span></div>
-            <h3>Project Alpha</h3>
-            <p>A commerce-driven venture connecting local businesses with digital consumers. Scaled to 500+ users in the first quarter of launch.</p>
+            <div class="proj-tags"><span>Accountancy</span><span>School Project</span></div>
+            <h3>Financial Statement Analysis</h3>
+            <p>A class project where I prepared and analysed financial statements &rdquo;” income statement, balance sheet, and cash flow &rdquo;” for a hypothetical business. Helped me understand how real companies report their finances.</p>
             <div class="proj-actions">
               <a href="#" class="plink plink-solid magnetic">
-                Live Demo
+                View Report
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 9v4a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h4M10 2h4v4M6.5 9.5l7-7"/></svg>
-              </a>
-              <a href="#" class="plink plink-ghost magnetic">
-                GitHub
-                <svg viewBox="0 0 24 24" fill="currentColor" class="gh-icon"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.79-.26.79-.58v-2.23c-3.34.73-4.03-1.42-4.03-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016.01 0C17.55 5.4 18.56 5.72 18.56 5.72c.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.19.69.8.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>
               </a>
             </div>
           </div>
@@ -439,18 +427,17 @@
             <div class="proj-overlay"><span>View Project</span></div>
           </div>
           <div class="proj-body">
-            <div class="proj-tags"><span>Marketing</span><span>Brand</span></div>
-            <h3>Brand Framework</h3>
-            <p>Personal brand strategy system used by emerging entrepreneurs. Helped 20+ businesses establish their market identity and digital presence.</p>
+            <div class="proj-tags"><span>Economics</span><span>Research</span></div>
+            <h3>Local Market Study &rdquo;” Janakpurdham</h3>
+            <p>A personal research project studying price behaviour and demand patterns in a local Janakpurdham market. Surveyed vendors and buyers, compiled data, and wrote a short report applying concepts from my Economics class.</p>
             <div class="proj-actions">
-              <a href="#" class="plink plink-solid magnetic">Live Demo <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 9v4a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h4M10 2h4v4M6.5 9.5l7-7"/></svg></a>
-              <a href="#" class="plink plink-ghost magnetic">GitHub <svg viewBox="0 0 24 24" fill="currentColor" class="gh-icon"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.79-.26.79-.58v-2.23c-3.34.73-4.03-1.42-4.03-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016.01 0C17.55 5.4 18.56 5.72 18.56 5.72c.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.19.69.8.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg></a>
+              <a href="#" class="plink plink-solid magnetic">Read Report <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 9v4a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h4M10 2h4v4M6.5 9.5l7-7"/></svg></a>
             </div>
           </div>
           <div class="card-border-glow"></div>
         </article>
 
-        <!-- Card 3 — Featured wide -->
+        <!-- Card 3 &rdquo;” Featured wide -->
         <article class="proj-card glass tilt proj-wide rv-up" style="--d:.3s">
           <div class="glow-corner"></div>
           <div class="proj-num">03</div>
@@ -458,12 +445,11 @@
             <div class="proj-overlay"><span>View Project</span></div>
           </div>
           <div class="proj-body">
-            <div class="proj-tags"><span>Community</span><span>Impact</span><span>Leadership</span></div>
-            <h3>Youth Entrepreneurship Initiative</h3>
-            <p>Founded a mentorship program in Nepal that has empowered 100+ young entrepreneurs to launch their first ventures through structured workshops, 1:1 coaching, and a vibrant network.</p>
+            <div class="proj-tags"><span>Business Studies</span><span>Presentation</span><span>Team Work</span></div>
+            <h3>Business Plan &rdquo;” College Presentation</h3>
+            <p>Developed a full business plan as part of a college Business Studies assignment. The plan covered market research, target customers, pricing strategy, basic financial projections, and a marketing approach for a small food business concept in Janakpurdham. Presented to the class and received positive feedback from our teacher.</p>
             <div class="proj-actions">
-              <a href="#" class="plink plink-solid magnetic">Live Demo <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 9v4a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h4M10 2h4v4M6.5 9.5l7-7"/></svg></a>
-              <a href="#" class="plink plink-ghost magnetic">GitHub <svg viewBox="0 0 24 24" fill="currentColor" class="gh-icon"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.79-.26.79-.58v-2.23c-3.34.73-4.03-1.42-4.03-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016.01 0C17.55 5.4 18.56 5.72 18.56 5.72c.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.19.69.8.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg></a>
+              <a href="#" class="plink plink-solid magnetic">View Plan <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 9v4a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h4M10 2h4v4M6.5 9.5l7-7"/></svg></a>
             </div>
           </div>
           <div class="card-border-glow"></div>
@@ -488,14 +474,14 @@
       <h2 class="sec-title rv-up">My toolkit<br><em>&amp; arsenal.</em></h2>
 
       <div class="tech-grid">
-        <div class="tech-card rv-up" style="--d:0s"><div class="ti">📊</div><span>Excel / Sheets</span></div>
-        <div class="tech-card rv-up" style="--d:.06s"><div class="ti">💼</div><span>Notion</span></div>
-        <div class="tech-card rv-up" style="--d:.12s"><div class="ti">📈</div><span>Tally ERP</span></div>
-        <div class="tech-card rv-up" style="--d:.18s"><div class="ti">🎨</div><span>Canva / Figma</span></div>
-        <div class="tech-card rv-up" style="--d:.24s"><div class="ti">📱</div><span>Social Media</span></div>
-        <div class="tech-card rv-up" style="--d:.3s"><div class="ti">🤝</div><span>LinkedIn</span></div>
-        <div class="tech-card rv-up" style="--d:.36s"><div class="ti">🌐</div><span>WordPress</span></div>
-        <div class="tech-card rv-up" style="--d:.42s"><div class="ti">📧</div><span>Email Marketing</span></div>
+        <div class="tech-card rv-up" style="--d:0s"><div class="ti">&#x1F4CA;</div><span>MS Excel</span></div>
+        <div class="tech-card rv-up" style="--d:.06s"><div class="ti">&#x1F4DD;</div><span>MS Word</span></div>
+        <div class="tech-card rv-up" style="--d:.12s"><div class="ti">&#x1F4C8;</div><span>Tally Prime</span></div>
+        <div class="tech-card rv-up" style="--d:.18s"><div class="ti">&#x1F3A8;</div><span>Canva</span></div>
+        <div class="tech-card rv-up" style="--d:.24s"><div class="ti">&#x1F4BC;</div><span>Notion</span></div>
+        <div class="tech-card rv-up" style="--d:.3s"><div class="ti">&#x1F4F1;</div><span>Social Media</span></div>
+        <div class="tech-card rv-up" style="--d:.36s"><div class="ti">&#x1F50D;</div><span>Google Workspace</span></div>
+        <div class="tech-card rv-up" style="--d:.42s"><div class="ti">&#x1F4D6;</div><span>Research &amp; Reading</span></div>
       </div>
 
     </div>
@@ -515,34 +501,34 @@
 
       <h2 class="sec-title rv-up">Milestones &amp;<br><em>recognition.</em></h2>
 
-      <div class="ach-grid">
+            <div class="ach-grid">
         <div class="ach-card glass rv-up" style="--d:0s">
           <div class="glow-corner"></div>
-          <div class="ach-icon">🏆</div>
-          <h3>Entrepreneurship Award</h3>
-          <p>Recognized for outstanding initiative and innovative thinking at the National Youth Entrepreneurship Summit.</p>
-          <span class="ach-year">2024</span>
+          <div class="ach-icon">&#x1F393;</div>
+          <h3>SEE Passed</h3>
+          <p>Successfully completed the Secondary Education Examination (SEE) from New English Boarding School, Janakpurdham &mdash; a major milestone in my academic journey.</p>
+          <span class="ach-year">2023</span>
         </div>
         <div class="ach-card glass rv-up" style="--d:.12s">
           <div class="glow-corner"></div>
-          <div class="ach-icon">🎓</div>
-          <h3>Academic Excellence</h3>
-          <p>Maintained distinction-level grades while simultaneously managing multiple active ventures and programs.</p>
-          <span class="ach-year">2023</span>
+          <div class="ach-icon">&#x1F4DA;</div>
+          <h3>+2 Commerce Enrolled</h3>
+          <p>Joined Monastic College for +2 Commerce &mdash; choosing a stream aligned with my interest in business, finance, and economics to build a strong foundation for the future.</p>
+          <span class="ach-year">2024</span>
         </div>
         <div class="ach-card glass rv-up" style="--d:.24s">
           <div class="glow-corner"></div>
-          <div class="ach-icon">🌟</div>
-          <h3>100+ Mentees</h3>
-          <p>Successfully mentored over a hundred young entrepreneurs through structured programs and coaching sessions.</p>
-          <span class="ach-year">2023–24</span>
+          <div class="ach-icon">&#x1F3C5;</div>
+          <h3>Best Business Plan</h3>
+          <p>Received appreciation from faculty for the best business plan presentation in the Business Studies class at Monastic College &mdash; a small win that motivated me to keep going.</p>
+          <span class="ach-year">2024</span>
         </div>
         <div class="ach-card glass rv-up" style="--d:.36s">
           <div class="glow-corner"></div>
-          <div class="ach-icon">🎤</div>
-          <h3>Speaker &amp; Panelist</h3>
-          <p>Featured keynote speaker at youth business forums, sharing insights on entrepreneurship and modern strategy.</p>
-          <span class="ach-year">2024</span>
+          <div class="ach-icon">&#x1F331;</div>
+          <h3>Self-Driven Learner</h3>
+          <p>Consistently reading books, watching business documentaries, and following entrepreneurs online &mdash; building knowledge beyond the classroom, one day at a time.</p>
+          <span class="ach-year">Ongoing</span>
         </div>
       </div>
 
@@ -565,20 +551,20 @@
 
         <div class="contact-left">
           <h2 class="sec-title rv-up">Let's build<br><em>something great.</em></h2>
-          <p class="body-text rv-up">Whether you have an idea, a venture, a partnership, or just want to connect — my inbox is always open.</p>
+          <p class="body-text rv-up">Whether you have an idea, a venture, a partnership, or just want to connect &rdquo;” my inbox is always open.</p>
 
           <div class="contact-info rv-up" style="--d:.12s">
-            <a href="mailto:rohit@example.com" class="cinfo-row">
-              <span class="cinfo-ico">✉</span>
-              <span>rohit@example.com</span>
+            <a href="mailto:rohitkarna@gmail.com" class="cinfo-row">
+              <span class="cinfo-ico">âœ‰</span>
+              <span>rohitkarna2023@gmail.com</span>
             </a>
-            <a href="tel:+977" class="cinfo-row">
-              <span class="cinfo-ico">📞</span>
-              <span>+977 XXX XXX XXXX</span>
-            </a>
+            <!-- <a href="tel:+9779800000000" class="cinfo-row">
+              <span class="cinfo-ico">&#x1F4DE;</span>
+              <span>+977 98XX XXX XXX</span>
+            </a> -->
             <div class="cinfo-row">
-              <span class="cinfo-ico">📍</span>
-              <span>Kathmandu, Nepal</span>
+              <span class="cinfo-ico">&#x1F4CD;</span>
+              <span>Kathmandu, Bagmati Province, Nepal</span>
             </div>
           </div>
 
@@ -611,11 +597,11 @@
             </div>
             <div class="fgroup">
               <label>Subject</label>
-              <input type="text" placeholder="Let's collaborate…" />
+              <input type="text" placeholder="Let's collaborate&rdquo;¦" />
             </div>
             <div class="fgroup">
               <label>Message</label>
-              <textarea rows="5" placeholder="Tell me about your idea…"></textarea>
+              <textarea rows="5" placeholder="Tell me about your idea&rdquo;¦"></textarea>
             </div>
             <button type="submit" class="btn btn-gold full magnetic">
               <span class="btn-text">Send Message</span>
@@ -641,15 +627,15 @@
         </div>
         <div class="footer-marquee">
           <div class="mq-track">
-            <span>Commerce · Entrepreneur · Strategy · Innovation · Leadership · Vision · Nepal · </span>
-            <span>Commerce · Entrepreneur · Strategy · Innovation · Leadership · Vision · Nepal · </span>
+            <span>SEE Â· New English Boarding School Â· +2 Commerce Â· Monastic College Â· Janakpurdham Â· Accountancy Â· Economics Â· Business Studies Â· Nepal Â· </span>
+            <span>SEE Â· New English Boarding School Â· +2 Commerce Â· Monastic College Â· Janakpurdham Â· Accountancy Â· Economics Â· Business Studies Â· Nepal Â· </span>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 Rohit Karna. Crafted with intention.</p>
+        <p>Â© 2026 Rohit Karna. Crafted with intention.</p>
         <div class="footer-nav">
-          <a href="#hero">Top ↑</a>
+          <a href="#hero">Top â†‘</a>
           <a href="#projects">Work</a>
           <a href="#contact">Contact</a>
         </div>
@@ -660,3 +646,8 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
