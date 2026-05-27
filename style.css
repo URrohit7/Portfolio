@@ -590,33 +590,39 @@ body.cursor-active #cursor {
 /* ========== TYPEWRITER ========== */
 .typewriter-wrap {
   display: flex;
-  align-items: center;
-  gap: 0;
-  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  align-items: baseline;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   font-weight: 500;
   color: var(--text-secondary);
-  min-height: 1.6em;
+  min-height: 1.8em;
+  white-space: nowrap;
   flex-wrap: nowrap;
+  gap: 0.35em;
 }
 
 .typewriter-prefix {
   color: var(--text-secondary);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .typewriter-text {
   color: var(--gold);
-  font-weight: 600;
+  font-weight: 700;
   font-family: 'Syne', sans-serif;
+  letter-spacing: 0.01em;
+  min-width: 2px;
 }
 
 .typewriter-cursor {
   color: var(--gold);
-  font-weight: 300;
-  font-size: 1.1em;
+  font-weight: 200;
+  font-size: 1em;
   line-height: 1;
   animation: blink 0.75s step-end infinite;
-  margin-left: 1px;
+  flex-shrink: 0;
+  /* Keep cursor visible even under reduced-motion */
+  animation-play-state: running !important;
 }
 
 @keyframes blink {
@@ -1778,6 +1784,14 @@ section {
     gap: 0.5rem;
   }
 
+  /* Typewriter wraps gracefully on tablet */
+  .typewriter-wrap {
+    font-size: clamp(0.95rem, 3vw, 1.1rem);
+    white-space: normal;
+    flex-wrap: wrap;
+    gap: 0.3em;
+  }
+
   .hero-cta {
     justify-content: center;
   }
@@ -2067,6 +2081,12 @@ section {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  /* Keep typewriter cursor blinking — it's the only motion that matters */
+  .typewriter-cursor {
+    animation: blink 0.75s step-end infinite !important;
+    animation-duration: 0.75s !important;
+    animation-iteration-count: infinite !important;
   }
   .rv-up, .rv-left, .rv-right {
     opacity: 1;
