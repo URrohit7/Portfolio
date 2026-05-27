@@ -1920,12 +1920,17 @@ section {
   }
   .hero-inner {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 3rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .hero-content {
     align-items: center;
+    order: 2;
+    max-width: 100%;
   }
 
   .hero-badge {
@@ -1933,7 +1938,8 @@ section {
   }
 
   .hero-name-row {
-    gap: 0.5rem;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
   }
 
   /* Typewriter wraps gracefully on tablet */
@@ -1941,7 +1947,10 @@ section {
     font-size: clamp(0.95rem, 3vw, 1.1rem);
     white-space: normal;
     flex-wrap: wrap;
-    gap: 0.3em;
+    gap: 0.4em;
+    justify-content: center;
+    min-height: auto;
+    line-height: 1.7;
   }
 
   .hero-cta {
@@ -1950,15 +1959,17 @@ section {
 
   .hero-meta {
     text-align: center;
+    margin: 1rem 0;
   }
 
   .hero-photo-wrap {
-    width: 260px;
-    height: 260px;
+    width: 280px;
+    height: 280px;
     grid-column: 1;
     grid-row: auto;
     justify-self: center;
-    margin-top: 1rem;
+    order: 1;
+    margin-bottom: 1.5rem;
   }
 
   .about-grid,
@@ -2021,17 +2032,84 @@ section {
 
   /* Hero */
   #hero {
-    padding: 100px 1.2rem 3rem;
+    padding: 80px 1rem 2rem;
     min-height: 100svh;
   }
 
   .hero-inner {
-    gap: 2rem;
+    gap: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-content {
+    gap: 1.5rem;
+    order: 2;
+    width: 100%;
+  }
+
+  .hero-name-row {
+    gap: 0.8rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-h1 {
+    font-size: clamp(2.2rem, 5.5vw, 3rem);
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  /* Typewriter optimizations for mobile */
+  .typewriter-wrap {
+    font-size: clamp(0.9rem, 2.8vw, 1rem);
+    white-space: normal;
+    flex-wrap: wrap;
+    gap: 0.3em;
+    justify-content: center;
+    min-height: auto;
+    align-items: center;
+    line-height: 1.8;
+    padding: 0 0.5rem;
+  }
+
+  .typewriter-prefix {
+    white-space: normal;
+  }
+
+  .typewriter-text {
+    display: inline-block;
+    min-width: auto;
+  }
+
+  .typewriter-cursor {
+    margin-left: 0.1em;
+  }
+
+  .hero-badge {
+    margin: 0 auto;
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .hero-meta {
+    text-align: center;
+    margin: 0.8rem 0;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-body);
+    padding: 0 0.5rem;
   }
 
   .hero-photo-wrap {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
+    order: 1;
+    margin-bottom: 1rem;
   }
 
   /* Hide decorative rings on small screens for perf */
