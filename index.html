@@ -183,9 +183,9 @@
           </div>
         </div>
         <!-- Floating chips -->
-        <div class="float-chip chip-1"> +2 Commerce</div>
+        <div class="float-chip chip-1">🎓 +2 Commerce</div>
         <div class="float-chip chip-2">&#x1F4DA; Monastic College</div>
-        <div class="float-chip chip-3">Janakpurdham</div>
+        <div class="float-chip chip-3">📍 Janakpurdham</div>
       </div>
 
     </div>
@@ -538,13 +538,108 @@
   </section>
 
   <!-- ================================================================
+       TESTIMONIALS
+  ================================================================ -->
+  <section id="testimonials">
+    <div class="container">
+
+      <div class="sec-label rv-up">
+        <span class="sec-num">07</span>
+        <span class="sec-dash"></span>
+        <span class="sec-txt">Testimonials</span>
+      </div>
+
+      <h2 class="sec-title rv-up">What people<br><em>say about me.</em></h2>
+
+      <div class="testi-grid">
+
+        <div class="testi-card glass rv-up" style="--d:0s">
+          <div class="glow-corner"></div>
+          <div class="testi-quote">&#x201C;</div>
+          <p class="testi-text">Rohit has an incredible ability to break down complex business concepts and explain them simply. His curiosity and drive to learn beyond the classroom is genuinely inspiring.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">
+              <span>A</span>
+            </div>
+            <div class="testi-info">
+              <strong>Aryan</strong>
+              <span>Brother &amp; Mentor</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card glass rv-up" style="--d:.1s">
+          <div class="glow-corner"></div>
+          <div class="testi-quote">&#x201C;</div>
+          <p class="testi-text">Working with Rohit on group projects is always a great experience. He brings structure, ideas, and energy to everything he does. A natural leader in the making.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">
+              <span>N</span>
+            </div>
+            <div class="testi-info">
+              <strong>Navneet</strong>
+              <span>Friend</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card glass rv-up" style="--d:.2s">
+          <div class="glow-corner"></div>
+          <div class="testi-quote">&#x201C;</div>
+          <p class="testi-text">Rohit is one of the most focused and self-motivated people I know. He's always reading, always learning, and always thinking about how to apply what he knows in the real world.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">
+              <span>A</span>
+            </div>
+            <div class="testi-info">
+              <strong>Ankit</strong>
+              <span>Junior &amp; </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card glass rv-up" style="--d:.3s">
+          <div class="glow-corner"></div>
+          <div class="testi-quote">&#x201C;</div>
+          <p class="testi-text">Rohit's passion for commerce and entrepreneurship is contagious. He helped me understand financial concepts I was struggling with and never made me feel like it was a burden.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">
+              <span>A</span>
+            </div>
+            <div class="testi-info">
+              <strong>Avanish</strong>
+              <span>Batch Mate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card glass rv-up" style="--d:.4s">
+          <div class="glow-corner"></div>
+          <div class="testi-quote">&#x201C;</div>
+          <p class="testi-text">What sets Rohit apart is his consistency. He shows up every day with the same level of dedication whether it's academics, personal projects, or just helping a friend out.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">
+              <span>S</span>
+            </div>
+            <div class="testi-info">
+              <strong>Saksham</strong>
+              <span>Close Friend</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
        CONTACT
   ================================================================ -->
   <section id="contact">
     <div class="container">
 
       <div class="sec-label rv-up">
-        <span class="sec-num">07</span>
+        <span class="sec-num">08</span>
         <span class="sec-dash"></span>
         <span class="sec-txt">Contact</span>
       </div>
@@ -647,9 +742,31 @@
 
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button id="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- ========== MUSIC PLAYER ========== -->
+  <div id="music-player">
+    <audio id="bg-music" loop preload="none">
+      <source src="interstellar.mp3" type="audio/mpeg" />
+    </audio>
+    <button id="music-toggle" aria-label="Toggle background music">
+      <div class="music-bars" id="music-bars">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <span class="music-label">Ambient</span>
+    </button>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
